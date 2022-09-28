@@ -8,10 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: EtablissementRepository::class)]
-#[ApiResource(normalizationContext:['groups' => ['read']],
-            itemOperations:['GET', 'GET'=>["security"=>"is_granted('Administrateur') or object == user"]],
+#[ApiResource(security: "is_granted('ROLE_ADMIN')",
+              normalizationContext:['groups' => ['read']],
+              itemOperations:['GET'],
               collectionOperations:['GET'])]
 class Etablissement
 {
@@ -21,9 +24,11 @@ class Etablissement
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(["read"])]
     private ?string $nomE = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(["read"])]
     private ?string $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'referee')]

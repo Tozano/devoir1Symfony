@@ -10,8 +10,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
-#[ApiResource(normalizationContext:['groups' => ['read']],
-              itemOperations:['GET', 'GET'=>["security"=>"is_granted('Administrateur') or object == user"]],
+#[ApiResource(security: "is_granted('Admin')",
+              normalizationContext:['groups' => ['read']],
+              itemOperations:['GET'],
               collectionOperations:['GET'])]
 class Professeur
 {

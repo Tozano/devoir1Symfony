@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
         for($i=0;$i<10;$i++){
             $user = new User();
             $prenom=$this->faker->firstName();
-            $user->setRoles(array('ROlE_USER'))
+            $user->setRoles(array('ROLE_ADMIN'))
             ->setEmail(strtolower($prenom).'.'.strtolower($this->faker->lastName()).'@'.$this->faker->freeEmailDomain())
             ->setPassword($this->passwordHasher->hashPassword($user, strtolower($prenom)));
             $this->addReference('user'.$i, $user);
